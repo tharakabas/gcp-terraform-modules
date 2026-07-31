@@ -348,6 +348,19 @@ variable "cluster_services_secondary_range_name" {
   default     = "cluster-services"
 }
 
+variable "dns_config" {
+  description = "Configuration for using Cloud DNS for GKE. Defaults to the platform in-cluster DNS provider (kube-dns). Set to null to omit the block entirely"
+  type = object({
+    cluster_dns                   = optional(string, "PLATFORM_DEFAULT")
+    cluster_dns_scope             = optional(string)
+    cluster_dns_domain            = optional(string)
+    additive_vpc_scope_dns_domain = optional(string)
+  })
+  default = {
+    cluster_dns = "PLATFORM_DEFAULT"
+  }
+}
+
 variable "master_authorized_networks_display_name" {
   description = "The display name for the master authorized networks CIDR block"
   type        = string

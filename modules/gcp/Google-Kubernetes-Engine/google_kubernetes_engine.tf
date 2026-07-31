@@ -161,6 +161,16 @@ resource "google_container_cluster" "cluster" {
     }
   }
 
+  dynamic "dns_config" {
+    for_each = var.dns_config != null ? [var.dns_config] : []
+    content {
+      cluster_dns                   = dns_config.value.cluster_dns
+      cluster_dns_scope             = dns_config.value.cluster_dns_scope
+      cluster_dns_domain            = dns_config.value.cluster_dns_domain
+      additive_vpc_scope_dns_domain = dns_config.value.additive_vpc_scope_dns_domain
+    }
+  }
+
   logging_config {
     enable_components = var.logging_enabled_components
   }
