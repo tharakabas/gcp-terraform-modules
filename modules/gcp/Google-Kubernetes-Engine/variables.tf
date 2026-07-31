@@ -171,4 +171,16 @@ variable "confidential_nodes" {
   type        = bool
   default     = false
 }
+variable "dns_config" {
+  description = "Configuration for using Cloud DNS for GKE. Defaults to the platform in-cluster DNS provider (kube-dns). Set to null to omit the block entirely"
+  type = object({
+    cluster_dns                   = optional(string, "PLATFORM_DEFAULT")
+    cluster_dns_scope             = optional(string)
+    cluster_dns_domain            = optional(string)
+    additive_vpc_scope_dns_domain = optional(string)
+  })
+  default = {
+    cluster_dns = "PLATFORM_DEFAULT"
+  }
+}
 
