@@ -24,7 +24,7 @@ resource "google_compute_instance" "bastion_vm" {
   description  = join(" ", ["Bastion VM for", var.environment])
   machine_type = var.bastion_vm_machine_type
   zone         = var.zone
-
+  enable_display = var.enable_display
   boot_disk {
     initialize_params {
       image = var.boot_disk_image
@@ -54,4 +54,10 @@ resource "google_compute_instance" "bastion_vm" {
     google_service_account.bastion_service_account,
     google_compute_subnetwork.bastion_subnetwork
   ]
+
+  lifecycle {
+    ignore_changes = [ 
+      metadata
+     ]
+  }
 }

@@ -97,3 +97,7 @@ variable "metadata_startup_script" {
     sudo apt install unzip
     EOF
 }
+
+variable "enable_display" {
+  default = true
+}
