@@ -101,6 +101,10 @@ resource "google_container_cluster" "cluster" {
   confidential_nodes {
     enabled = var.confidential_nodes
   }
+  database_encryption {
+    state    = var.enable_database_encryption ? "ENCRYPTED" : "DECRYPTED"
+    key_name = var.enable_database_encryption ? google_kms_crypto_key.database_encryption[0].id : null
+  }
   resource_labels = var.labels
   dynamic "dns_config" {
     for_each = var.dns_config != null ? [var.dns_config] : []
@@ -123,6 +127,7 @@ resource "google_container_cluster" "cluster" {
 
   depends_on = [
     google_compute_subnetwork.cluster_subnetwork,
-    google_service_account.cluster_service_account
+    google_service_account.cluster_service_account,
+    google_kms_crypto_key_iam_member.database_encryption
   ]
 }

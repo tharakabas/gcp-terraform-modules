@@ -37,3 +37,11 @@ output "gke_cluster_subnet_ip_cidr_range" {
   value      = google_compute_subnetwork.cluster_subnetwork.ip_cidr_range
   depends_on = [google_compute_subnetwork.cluster_subnetwork]
 }
+output "gke_database_encryption_key_ring_id" {
+  value      = var.enable_database_encryption ? google_kms_key_ring.database_encryption[0].id : null
+  depends_on = [google_kms_key_ring.database_encryption]
+}
+output "gke_database_encryption_key_id" {
+  value      = var.enable_database_encryption ? google_kms_crypto_key.database_encryption[0].id : null
+  depends_on = [google_kms_crypto_key.database_encryption]
+}

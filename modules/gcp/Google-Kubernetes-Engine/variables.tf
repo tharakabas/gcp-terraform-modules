@@ -183,4 +183,18 @@ variable "dns_config" {
     cluster_dns = "PLATFORM_DEFAULT"
   }
 }
-
+variable "enable_database_encryption" {
+  description = "Enable application-layer secrets encryption (etcd) for the cluster. When enabled, a Cloud KMS key ring and crypto key are created in the cluster region and the GKE service agent is granted encrypt/decrypt access on the key"
+  type        = bool
+  default     = false
+}
+variable "database_encryption_key_ring_name" {
+  description = "Name of the Cloud KMS key ring created for database encryption. Defaults to a generated name. Only used when enable_database_encryption is true"
+  type        = string
+  default     = null
+}
+variable "database_encryption_key_rotation_period" {
+  description = "Rotation period of the database encryption crypto key, in seconds. Only used when enable_database_encryption is true"
+  type        = string
+  default     = "7776000s"
+}
