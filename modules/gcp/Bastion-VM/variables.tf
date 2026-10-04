@@ -268,3 +268,9 @@ variable "name" {
   description = "The name of the bastion VM instance"
   type        = string
 }
+
+variable "firewall_name" {
+  description = "The name to be used in naming the firewall rules related to the bastion VM"
+  type        = string
+  default     = ""
+}
