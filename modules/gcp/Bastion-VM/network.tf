@@ -33,7 +33,7 @@ resource "google_compute_subnetwork" "bastion_subnetwork" {
 
 # trivy:ignore:AVD-GCP-0027
 resource "google_compute_firewall" "allow_ssh_rule" {
-  name               = join("-", compact([var.firewall_abbreviation, "bastion-ssh-allow"]))
+  name               = join("-", compact([var.firewall_abbreviation, var.firewall_name, "bastion-ssh-allow"]))
   project            = var.project_id
   network            = var.network_name
   priority           = var.priority
