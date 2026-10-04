@@ -270,7 +270,7 @@ variable "name" {
 }
 
 variable "firewall_name" {
-  description = "The abbreviation to be used in naming the firewall rules related to the bastion VM"
+  description = "The name to be used in naming the firewall rules related to the bastion VM"
   type        = string
   default     = ""
 }
